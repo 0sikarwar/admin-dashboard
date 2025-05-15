@@ -1,0 +1,27 @@
+{
+  "name": "medusa-shoe-shop",
+  "private": true,
+  "scripts": {
+    "install:all": "yarn --cwd backend install && yarn --cwd admin install && yarn --cwd storefront install",
+    "clean": "rm -rf node_modules yarn.lock backend/node_modules backend/yarn.lock admin/node_modules admin/yarn.lock storefront/node_modules storefront/yarn.lock && yarn install && yarn install:all",
+    "dev": "concurrently \"yarn dev:backend\" \"yarn dev:admin\" \"yarn dev:storefront\"",
+    "dev:backend": "yarn --cwd backend dev",
+    "dev:admin": "yarn --cwd admin dev",
+    "dev:storefront": "yarn --cwd storefront dev",
+    "build": "yarn build:backend && yarn build:admin && yarn build:storefront",
+    "build:backend": "yarn --cwd backend build",
+    "build:admin": "yarn --cwd admin build",
+    "build:storefront": "yarn --cwd storefront build",
+    "start": "concurrently \"yarn start:backend\" \"yarn start:admin\" \"yarn start:storefront\"",
+    "start:backend": "yarn --cwd backend start",
+    "start:admin": "yarn --cwd admin preview",
+    "start:storefront": "yarn --cwd storefront start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+  "dependencies": {
+    "redis": "^5.0.1"
+  }
+}
