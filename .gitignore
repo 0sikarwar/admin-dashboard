@@ -2,3 +2,6 @@
 **/.yarn
 **/.storybook
 jarsy/resolutions.json
+jarsy-deploy.zip
+.DS_Store
+jarsy/public
