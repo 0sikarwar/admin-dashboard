@@ -14,16 +14,19 @@
   ],
   "scripts": {
     "build": "medusa build && rm -rf public && ln -s .medusa/server/public/ public",
-    "build:prod": "yarn update-resolutions && yarn start-docker:prod && yarn build",
+    "build:prod": "yarn start-docker:prod && yarn build",
     "seed": "medusa exec ./src/scripts/seed.ts",
     "start": "medusa start",
+    "start:prod": "yarn predeploy && pm2 delete jarsy-admin 2> /dev/null || true && sleep 0.5 && pm2 start npm --name 'jarsy-admin' -- start && pm2 save",
     "dev": "medusa develop",
     "test:integration:http": "TEST_TYPE=integration:http NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand --forceExit",
     "test:integration:modules": "TEST_TYPE=integration:modules NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit",
     "test:unit": "TEST_TYPE=unit NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit",
     "update-resolutions": "node generate-resolutions",
     "start-docker": "docker compose up -d",
-    "start-docker:prod": "docker-compose up -d"
+    "start-docker:prod": "docker-compose up -d",
+    "update-env": "echo \"\nMEDUSA_BACKEND_URL=https://admin.jarsy.in\" >> .env",
+    "predeploy": "medusa db:migrate"
   },
   "dependencies": {
     "@medusajs/admin-sdk": "2.8.3",
